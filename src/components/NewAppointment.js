@@ -1,17 +1,19 @@
 import React, { Component } from "react";
 import uuid from "uuid";
 
+const initialState = {
+  appointment: {
+    pet: "",
+    owner: "",
+    date: "",
+    time: "",
+    symptoms: ""
+  },
+  error: false
+};
+
 class NewAppointment extends Component {
-  state = {
-    appointment: {
-      pet: "",
-      owner: "",
-      date: "",
-      time: "",
-      symptoms: ""
-    },
-    error: false
-  };
+  state = { ...initialState };
 
   handleChange = e => {
     //console.log( "you are typing in" + e.target.name + " the value: " + e.target.value);
@@ -37,8 +39,6 @@ class NewAppointment extends Component {
       });
 
       //console.log('there are fields empty!');
-      window.alert("there are fields empty!");
-
       return;
     }
 
@@ -47,15 +47,32 @@ class NewAppointment extends Component {
     newAppointment.id = uuid();
     // Add appointment to state
     this.props.addAppointment(newAppointment);
+
+    // Set initial state to restore form values
+    this.setState({
+      ...initialState
+    });
   };
 
   render() {
+    // Let's get if there is an error
+    const { error } = this.state;
+
     return (
       <div className="card mt-5 py-5">
         <div className="card-body">
           <h2 className="card-title text-center mb-5">
             Fill in the form to add an appointment
           </h2>
+
+          {/* Error message */}
+          {error ? (
+            <div className="alert alert-danger mt-2 mb-5 text-center">
+              All fields are required
+            </div>
+          ) : null}
+
+          {/* Form */}
           <form onSubmit={this.handleSubmit}>
             {/* pet name */}
             <div className="form-group row">
