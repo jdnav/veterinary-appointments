@@ -1,7 +1,29 @@
 import React, { Component } from "react";
 
 class NewAppointment extends Component {
-  state = {};
+  state = {
+    appointment: {
+      pet: "",
+      owner: "",
+      date: "",
+      time: "",
+      symptoms: ""
+    }
+  };
+
+  handleChange = e => {
+    console.log(
+      "you are typing in" + e.target.name + " the value: " + e.target.value
+    );
+
+    // add what user is typing in state...
+    this.setState({
+      appointment: {
+        ...this.state.appointment,
+        [e.target.name]: e.target.value
+      }
+    });
+  };
 
   render() {
     return (
@@ -22,6 +44,8 @@ class NewAppointment extends Component {
                   className="form-control"
                   placeholder="Pet Name"
                   name="pet"
+                  onChange={this.handleChange}/* Every change in the input... */
+                  value={this.state.appointment.pet}
                 />
               </div>
             </div>
@@ -36,6 +60,8 @@ class NewAppointment extends Component {
                   className="form-control"
                   placeholder="Owner Name"
                   name="owner"
+                  onChange={this.handleChange} /* Every change in the input... */
+                  value={this.state.appointment.owner}
                 />
               </div>
             </div>
@@ -48,6 +74,8 @@ class NewAppointment extends Component {
                   className="form-control"
                   placeholder="Owner Name"
                   name="date"
+                  onChange={this.handleChange} /* Every change in the input... */
+                  value={this.state.appointment.date}
                 />
               </div>
               {/* Appointment Time */}
@@ -58,6 +86,8 @@ class NewAppointment extends Component {
                   className="form-control"
                   placeholder="Owner Name"
                   name="time"
+                  onChange={this.handleChange} /* Every change in the input... */
+                  value={this.state.appointment.time}
                 />
               </div>
             </div>
@@ -71,6 +101,8 @@ class NewAppointment extends Component {
                   className="form-control"
                   name="symptoms"
                   placeholder="Symptoms"
+                  onChange={this.handleChange} /* Every change in the input... */
+                  value={this.state.appointment.symptoms}
                 ></textarea>
               </div>
             </div>
