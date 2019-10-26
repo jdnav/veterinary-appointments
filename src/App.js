@@ -5,7 +5,18 @@ import Header from "./components/Header";
 import NewAppointment from "./components/NewAppointment";
 
 class App extends Component {
-  state = {};
+  state = {
+    appointments: []
+  };
+
+  addAppointment = data => {
+    console.log(data);
+    // copy current state
+    const appointments = [...this.state.appointments, data];
+
+    // add new state
+    this.setState({ appointments: appointments });
+  };
 
   render() {
     return (
@@ -14,7 +25,7 @@ class App extends Component {
 
         <div className="row">
           <div className="col-md-10 mx-auto">
-            <NewAppointment />
+            <NewAppointment addAppointment={this.addAppointment} />
           </div>
         </div>
       </div>

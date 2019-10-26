@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import uuid from "uuid";
 
 class NewAppointment extends Component {
   state = {
@@ -8,14 +9,12 @@ class NewAppointment extends Component {
       date: "",
       time: "",
       symptoms: ""
-    }
+    },
+    error: false
   };
 
   handleChange = e => {
-    console.log(
-      "you are typing in" + e.target.name + " the value: " + e.target.value
-    );
-
+    //console.log( "you are typing in" + e.target.name + " the value: " + e.target.value);
     // add what user is typing in state...
     this.setState({
       appointment: {
@@ -25,6 +24,31 @@ class NewAppointment extends Component {
     });
   };
 
+  handleSubmit = e => {
+    e.preventDefault();
+
+    // Extract values from state
+    const { pet, owner, date, time, symptoms } = this.state.appointment;
+
+    // Validate all fields
+    if (!pet || !owner || !date || !time || !symptoms) {
+      this.setState({
+        error: true
+      });
+
+      //console.log('there are fields empty!');
+      window.alert("there are fields empty!");
+
+      return;
+    }
+
+    // generate object
+    const newAppointment = { ...this.state.appointment };
+    newAppointment.id = uuid();
+    // Add appointment to state
+    this.props.addAppointment(newAppointment);
+  };
+
   render() {
     return (
       <div className="card mt-5 py-5">
@@ -32,7 +56,7 @@ class NewAppointment extends Component {
           <h2 className="card-title text-center mb-5">
             Fill in the form to add an appointment
           </h2>
-          <form>
+          <form onSubmit={this.handleSubmit}>
             {/* pet name */}
             <div className="form-group row">
               <label className="col-sm-4 col-lg-2 col-form-label">
@@ -44,7 +68,9 @@ class NewAppointment extends Component {
                   className="form-control"
                   placeholder="Pet Name"
                   name="pet"
-                  onChange={this.handleChange}/* Every change in the input... */
+                  onChange={
+                    this.handleChange
+                  } /* Every change in the input... */
                   value={this.state.appointment.pet}
                 />
               </div>
@@ -60,7 +86,9 @@ class NewAppointment extends Component {
                   className="form-control"
                   placeholder="Owner Name"
                   name="owner"
-                  onChange={this.handleChange} /* Every change in the input... */
+                  onChange={
+                    this.handleChange
+                  } /* Every change in the input... */
                   value={this.state.appointment.owner}
                 />
               </div>
@@ -74,7 +102,9 @@ class NewAppointment extends Component {
                   className="form-control"
                   placeholder="Owner Name"
                   name="date"
-                  onChange={this.handleChange} /* Every change in the input... */
+                  onChange={
+                    this.handleChange
+                  } /* Every change in the input... */
                   value={this.state.appointment.date}
                 />
               </div>
@@ -86,7 +116,9 @@ class NewAppointment extends Component {
                   className="form-control"
                   placeholder="Owner Name"
                   name="time"
-                  onChange={this.handleChange} /* Every change in the input... */
+                  onChange={
+                    this.handleChange
+                  } /* Every change in the input... */
                   value={this.state.appointment.time}
                 />
               </div>
@@ -101,7 +133,9 @@ class NewAppointment extends Component {
                   className="form-control"
                   name="symptoms"
                   placeholder="Symptoms"
-                  onChange={this.handleChange} /* Every change in the input... */
+                  onChange={
+                    this.handleChange
+                  } /* Every change in the input... */
                   value={this.state.appointment.symptoms}
                 ></textarea>
               </div>
