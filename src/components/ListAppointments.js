@@ -1,5 +1,6 @@
 import React from "react";
 import Appointment from "./Appointment";
+import PropTypes from "prop-types";
 
 //sfc = Stateless Functional Component
 const ListAppointments = ({ appointments, removeAppointment }) => (
@@ -19,5 +20,10 @@ const ListAppointments = ({ appointments, removeAppointment }) => (
     </div>
   </div>
 );
+
+ListAppointments.propTypes = {
+    appointments: PropTypes.array.isRequired,
+    removeAppointment: PropTypes.func.isRequired
+}
 
 export default ListAppointments;

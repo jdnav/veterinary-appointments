@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const Appointment = ({ appointment, removeAppointment }) => (
   <div className="media mt-3">
@@ -27,5 +28,12 @@ const Appointment = ({ appointment, removeAppointment }) => (
     </div>
   </div>
 );
+
+Appointment.prototype = {
+    key:PropTypes.string,
+    appointment: PropTypes.object.isRequired,
+    removeAppointment: PropTypes.func.isRequired
+
+}
 
 export default Appointment;
