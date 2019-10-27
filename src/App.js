@@ -10,6 +10,23 @@ class App extends Component {
     appointments: []
   };
 
+  // Called when document IS ready (BUT RENDER() IS CALLED BEFORE!!)
+  componentDidMount(){
+    const appointmentsLS = localStorage.getItem('appointments');
+
+    if (appointmentsLS) {
+      this.setState({
+        appointments: JSON.parse(appointmentsLS)
+      });
+    }
+  }
+
+  // Called when document is updated (add / remove)
+  componentDidUpdate() {
+    localStorage.setItem('appointments', JSON.stringify(this.state.appointments))
+  }
+
+
   // Add appointment function
   addAppointment = data => {
     // console.log(data);
@@ -22,7 +39,6 @@ class App extends Component {
 
   // Remove appointment function
   removeAppointment = id => {
-    // console.log(data);
     // copy current state
     const appointments = [...this.state.appointments];
 
