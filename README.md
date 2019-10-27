@@ -1,10 +1,10 @@
 ## Project info
 
-This project simulates a veterinary patients list.
+This project simulates a veterinary patients list. You can add, list and remove appointments.
 
 ## Technological scope
 
-React: Components, Hooks, Redux, Context and Classes.
+React: Classes and Stateless Functional Components.
 
 ## General info
 
