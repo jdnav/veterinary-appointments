@@ -10,13 +10,27 @@ class App extends Component {
     appointments: []
   };
 
+  // Add appointment function
   addAppointment = data => {
-    console.log(data);
+    // console.log(data);
     // copy current state
     const appointments = [...this.state.appointments, data];
 
     // add new state
     this.setState({ appointments: appointments });
+  };
+
+  // Remove appointment function
+  removeAppointment = id => {
+    // console.log(data);
+    // copy current state
+    const appointments = [...this.state.appointments];
+
+    // Let's get all of the appointments except the removed one
+    const newAppointments = appointments.filter(obj => obj.id !== id)
+
+    // add new state
+    this.setState({ appointments: newAppointments });
   };
 
   render() {
@@ -30,7 +44,10 @@ class App extends Component {
           </div>
 
           <div className="mt-5 col-md-10 mx-auto">
-            <ListAppointments appointments={this.state.appointments} />
+            <ListAppointments
+              appointments={this.state.appointments}
+              removeAppointment={this.removeAppointment}
+            />
           </div>
         </div>
       </div>
